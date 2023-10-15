@@ -1,4 +1,3 @@
-
 <body>
 <div class="root"></div>
 <script>
@@ -13,18 +12,25 @@
         const uTrx = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-TRX&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
         const kimpTrx = (Math.floor(((uTrx - kTrx * eRate) * 100 / uTrx) * 10) / 10) + '%'
 
+        const kEos = await fetch('https://api.kraken.com/0/public/Ticker?pair=EOSUSD').then(res => res.json()).then(res => res['result']['EOSUSD']['c'][0]).then(Number)
+        const uEos = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-EOS&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
+        const kimpEos = (Math.floor(((uEos - kEos * eRate) * 100 / uEos) * 10) / 10) + '%'
+
         // const kBtc = await fetch('https://api.kraken.com/0/public/Ticker?pair=XBTUSD').then(res => res.json()).then(res => res['result']['XXBTZUSD']['c'][0]).then(Number)
         // const uBtc = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
         // const kimpBTC = (Math.floor(((uBtc - kBtc * eRate) * 100 / uBtc) * 10) / 10) + '%'
 
-        console.log({kBtc, uBtc, eRate, kimpBtc, kimpTrx})
+        console.log({eRate, kBtc, uBtc, kTrx, uTrx, kEos, uEos, kimpBtc, kimpTrx, kimpEos})
 
         document.querySelector('.root').innerHTML = `
             btc: ${kimpBtc}
             <br/>
             trx: ${kimpTrx}
+            <br/>
+            eos: ${kimpEos}
         `
     }
+
     getKimp()
 </script>
 </body>
