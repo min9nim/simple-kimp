@@ -1,0 +1,30 @@
+
+<body>
+<div class="root"></div>
+<script>
+    async function getKimp() {
+        const eRate = await fetch('https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD').then(res => res.json()).then(res => res[0].basePrice)
+
+        const kBtc = await fetch('https://api.kraken.com/0/public/Ticker?pair=XBTUSD').then(res => res.json()).then(res => res['result']['XXBTZUSD']['c'][0]).then(Number)
+        const uBtc = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
+        const kimpBtc = (Math.floor(((uBtc - kBtc * eRate) * 100 / uBtc) * 10) / 10) + '%'
+
+        const kTrx = await fetch('https://api.kraken.com/0/public/Ticker?pair=TRXUSD').then(res => res.json()).then(res => res['result']['TRXUSD']['c'][0]).then(Number)
+        const uTrx = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-TRX&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
+        const kimpTrx = (Math.floor(((uTrx - kTrx * eRate) * 100 / uTrx) * 10) / 10) + '%'
+
+        // const kBtc = await fetch('https://api.kraken.com/0/public/Ticker?pair=XBTUSD').then(res => res.json()).then(res => res['result']['XXBTZUSD']['c'][0]).then(Number)
+        // const uBtc = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
+        // const kimpBTC = (Math.floor(((uBtc - kBtc * eRate) * 100 / uBtc) * 10) / 10) + '%'
+
+        console.log({kBtc, uBtc, eRate, kimpBtc, kimpTrx})
+
+        document.querySelector('.root').innerHTML = `
+            btc: ${kimpBtc}
+            <br/>
+            trx: ${kimpTrx}
+        `
+    }
+    getKimp()
+</script>
+</body>
