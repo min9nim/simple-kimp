@@ -2,19 +2,24 @@
 <div class="root"></div>
 <script>
     async function getKimp() {
+
+        function calKimp(upbit, kraken) {
+            return (Math.floor(((upbit - kraken * eRate) * 100 / upbit) * 10) / 10) + '%'
+        }
+
         const eRate = await fetch('https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD').then(res => res.json()).then(res => res[0].basePrice)
 
         const kBtc = await fetch('https://api.kraken.com/0/public/Ticker?pair=XBTUSD').then(res => res.json()).then(res => res['result']['XXBTZUSD']['c'][0]).then(Number)
         const uBtc = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
-        const kimpBtc = (Math.floor(((uBtc - kBtc * eRate) * 100 / uBtc) * 10) / 10) + '%'
+        const kimpBtc = calKimp(uBtc, kBtc)
 
         const kTrx = await fetch('https://api.kraken.com/0/public/Ticker?pair=TRXUSD').then(res => res.json()).then(res => res['result']['TRXUSD']['c'][0]).then(Number)
         const uTrx = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-TRX&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
-        const kimpTrx = (Math.floor(((uTrx - kTrx * eRate) * 100 / uTrx) * 10) / 10) + '%'
+        const kimpTrx = calKimp(uTrx, kTrx)
 
         const kEos = await fetch('https://api.kraken.com/0/public/Ticker?pair=EOSUSD').then(res => res.json()).then(res => res['result']['EOSUSD']['c'][0]).then(Number)
         const uEos = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-EOS&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
-        const kimpEos = (Math.floor(((uEos - kEos * eRate) * 100 / uEos) * 10) / 10) + '%'
+        const kimpEos = calKimp(uEos, kEos)
 
         // const kBtc = await fetch('https://api.kraken.com/0/public/Ticker?pair=XBTUSD').then(res => res.json()).then(res => res['result']['XXBTZUSD']['c'][0]).then(Number)
         // const uBtc = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
