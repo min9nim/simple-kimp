@@ -32,6 +32,17 @@
         console.log({eRate, kBtc, uBtc, kTrx, uTrx, kEos, uEos, kimpBtc, kimpTrx, kimpEos})
 
         document.querySelector('.root').innerHTML = `
+            -- UPBIT --<br/>
+            btc: ${uBtc.toLocaleString()}<br/>
+            trx: ${uTrx}<br/>
+            eos: ${uEos}<br/>
+            <br/>
+            -- KRAKEN --<br/>
+            btc: ${kBtc.toLocaleString()}<br/>
+            trx: ${kTrx}<br/>
+            eos: ${kEos}<br/>
+            <br/>
+            -------
             btc: ${kimpBtc}
             <br/>
             trx: ${kimpTrx}
