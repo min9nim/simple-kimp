@@ -37,6 +37,11 @@
         console.log({eRate, kBtc, uBtc, kTrx, uTrx, kEos, uEos, kimpBtc, kimpTrx, kimpEos})
 
         document.querySelector('.root').innerHTML = `
+            - ${String(new Date).substr(0,24)}
+            </br/>
+            - Exchange rate: ${eRate.toLocaleString()}
+            </br/>
+            </br/>
             -- UPBIT --<br/>
             btc: ${uBtc.toLocaleString()}<br/>
             trx: ${uTrx}<br/>
@@ -56,6 +61,8 @@
         `
     }
 
+
     getKimp()
+    setInterval(() => getKimp(), 5000)
 </script>
 </body>
