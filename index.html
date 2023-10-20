@@ -56,12 +56,22 @@
         // const uBtc = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
         // const kimpBTC = (Math.floor(((uBtc - kBtc * eRate) * 100 / uBtc) * 10) / 10) + '%'
 
-        console.log({eRate, kBtc, uBtc, kTrx, uTrx, kEos, uEos, kimpBtc, kimpTrx, kimpEos})
+        // console.log({eRate, kBtc, uBtc, kTrx, uTrx, kEos, uEos, kimpBtc, kimpTrx, kimpEos})
+        //
+        // const time = (new Date()).toLocaleString('ko-KR', {
+        //     hour12: false,
+        //     year: 'numeric',
+        //     month: 'numeric',
+        //     day: 'numeric',
+        //     hour: '2-digit',
+        //     minute: '2-digit',
+        //     second: '2-digit',
+        // })
 
         document.querySelector('.root').innerHTML = `
-            - ${String(new Date).substr(0,24)}
+            - <i>${String(new Date).substr(0,24)}</i>
             </br/>
-            - Exchange rate: ${eRate.toLocaleString()}
+            - <i>Exchange rate: ${eRate.toLocaleString()}</i>
             </br/>
             </br/>
             -- Upbit --<br/>
