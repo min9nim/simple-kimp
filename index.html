@@ -52,6 +52,10 @@
         const uEos = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-EOS&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
         const kimpEos = calKimp(uEos, kEos)
 
+        const kMina = await fetch('https://api.kraken.com/0/public/Ticker?pair=MINAUSD').then(res => res.json()).then(res => res['result']['MINAUSD']['c'][0]).then(Number)
+        const uMina = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-MINA&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
+        const kimpMina = calKimp(uMina, kMina)
+
         // const kBtc = await fetch('https://api.kraken.com/0/public/Ticker?pair=XBTUSD').then(res => res.json()).then(res => res['result']['XXBTZUSD']['c'][0]).then(Number)
         // const uBtc = await fetch('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=1').then(res => res.json()).then(res => res[0]['trade_price'])
         // const kimpBTC = (Math.floor(((uBtc - kBtc * eRate) * 100 / uBtc) * 10) / 10) + '%'
@@ -78,11 +82,13 @@
             btc: ${uBtc.toLocaleString()}<br/>
             trx: ${uTrx}<br/>
             eos: ${uEos}<br/>
+            mina: ${uMina}<br/>
             <br/>
             -- Kraken --<br/>
             btc: ${kBtc.toLocaleString()}<br/>
             trx: ${kTrx}<br/>
             eos: ${kEos}<br/>
+            mina: ${kMina}<br/>
             <br/>
             -- Kimp --<br/>
             btc: ${kimpBtc}
@@ -90,6 +96,8 @@
             trx: ${kimpTrx}
             <br/>
             eos: ${kimpEos}
+            <br/>
+            mina: ${kimpMina}
         `
     }
 
